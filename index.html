@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الحضور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #f3f7fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #333;
+        }
+
+        /* رأس الصفحة */
+        .header {
+            width: 100%;
+            background: linear-gradient(45deg, #007bff, #00d2ff);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* محتوى الصفحة */
+        .container {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+            border-top: 14px solid #00d2ff;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 33px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .attendance-form input, .attendance-form button {
+            width: 90%;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 12px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .attendance-form input {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .attendance-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            font-weight: 600;
+        }
+
+        .attendance-form button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* الإعدادات */
+        .settings-container {
+            display: none;
+            background: #f1f1f1;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-btn {
+            background-color: #28a745;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease;
+        }
+
+        .settings-btn:hover {
+            background-color: #218838;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .report-btn {
+            background-color: #dc3545;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease;
+        }
+
+        .report-btn:hover {
+            background-color: #c82333;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* زر الواتساب */
+        .whatsapp-btn {
+            background-color: #25D366;
+            padding: 18px;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* تنسيق حقوق الملكية */
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            color: #888;
+            padding: 10px;
+            background-color: #f7f7f7;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- رأس الصفحة -->
+    <div class="header">
+        <span id="current-time"></span>
+        <button onclick="toggleSettings()" class="settings-btn"><i class="fas fa-cogs"></i> الإعدادات</button>
+    </div>
+
+    <!-- محتوى الصفحة -->
+    <div class="container">
+        <h2>تسجيل الحضور</h2>
+        <h4>متوسطة شعية بن الحجاج وتحفيظ القران الكريم</h4>
+        <div class="attendance-form">
+            <input type="text" id="name" placeholder="أدخل اسم الطالب أو المعلم" required>
+            <button onclick="registerAttendance()">تسجيل الحضور</button>
+        </div>
+        <div class="status" id="statusMessage"></div>
+        <div class="settings-container" id="settings">
+            <button class="report-btn" onclick="requestReportAccess()">تقرير المدير</button>
+        </div>
+
+        <!-- زر التواصل مع الدعم عبر الواتساب -->
+        <a href="https://wa.me/9660504680407?text=مرحباً%20دعم،%20أحتاج%20مساعدتكم" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> تواصل مع الدعم
+        </a>
+    </div>
+
+    <!-- إشعار الوقت والتاريخ -->
+    <script>
+        function updateTime() {
+            const currentDate = new Date();
+            const timeString = currentDate.toLocaleString();
+            document.getElementById('current-time').innerText = `الوقت الحالي: ${timeString}`;
+        }
+
+        setInterval(updateTime, 1000); // تحديث الوقت كل ثانية
+
+        function registerAttendance() {
+            const name = document.getElementById('name').value;
+            if (name) {
+                const currentTime = new Date().toLocaleString();
+                const attendanceData = { name: name, time: currentTime };
+                let attendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords')) || [];
+                attendanceRecords.push(attendanceData);
+                localStorage.setItem('attendanceRecords', JSON.stringify(attendanceRecords));
+                document.getElementById('statusMessage').innerHTML = `<p style="color: #28a745;">تم تسجيل الحضور بنجاح!</p>`;
+            } else {
+                document.getElementById('statusMessage').innerHTML = `<p style="color: #dc3545;">من فضلك أدخل اسم الطالب أو المعلم.</p>`;
+            }
+        }
+
+        function toggleSettings() {
+            const settingsContainer = document.getElementById('settings');
+            settingsContainer.style.display = settingsContainer.style.display === 'none' || settingsContainer.style.display === '' ? 'block' : 'none';
+        }
+
+        function requestReportAccess() {
+            let password = prompt("الرجاء إدخال الرقم السري للوصول إلى تقرير الحضور:");
+            if (password === "1234") {
+                window.location.href = "report.html";
+            } else {
+                alert("الرقم السري غير صحيح!");
+            }
+        }
+    </script>
+
+    <!-- حقوق الملكية -->
+    <div class="footer">
+        <p>&copy; 2025 جميع الحقوق محفوظة. تصميم وبرمجة بواسطة <a href="#">عبدالملك هزازي</a>.</p>
+    </div>
+
+</body>
+</html>
